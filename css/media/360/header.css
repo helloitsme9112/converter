@@ -1,3 +1,10 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v8.4.14,
+* Autoprefixer: v10.4.7
+* Browsers: last 4 version
+*/
+
 @media all and (max-width: 576px) {
   #header {
     margin-bottom: 113px;
@@ -46,7 +53,9 @@
   }
 
   .header__button {
-    transform: translateY(-24%);
+    -webkit-transform: translateY(-24%);
+        -ms-transform: translateY(-24%);
+            transform: translateY(-24%);
   }
 
   .wrapper--right > .header__prompt--right + .choices > .choices__inner {

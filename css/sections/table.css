@@ -77,12 +77,18 @@ tbody > tr:last-child > .td-value {
   --padding-left: 24px;
   width: calc(var(--left-width) + var(--padding-left) + var(--padding-right));
   height: 100%;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .td-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   gap: 8px;
 }
 
@@ -95,11 +101,11 @@ tbody > tr:last-child > .td-value {
   max-width: calc(var(--right-width) + var(--padding-left) + var(--padding-right));
   white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+     text-overflow: ellipsis;
 }
 
 .value {
   --padding-right: 24px;
   width: calc(var(--right-width) + var(--padding-left) + var(--padding-right));
 }
-
