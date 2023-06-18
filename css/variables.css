@@ -1,0 +1,29 @@
+:root {
+  /* colors */
+  --black: #000;
+  --white: #fff;
+  --blue-grey: #C0CAD6;
+  --text-light: #777F85;
+  --thead: #F2F5F5;
+  --active-element: #287EA2;
+
+  /* select sizes */
+  --width-after: 60px;
+
+  /* table sizes */
+  --padding-top: 22px;
+  --padding-bot: 22px;
+  --padding-left: 10px;
+  --padding-right: 10px;
+  --left-width: 118px;
+  --right-width: 298px;
+
+  /* tablet btn size */
+  --btn-size: 88px;
+}
+
+@media all and (max-width: 1024px) {
+  :root {
+    --width-after: 164px;
+  }
+}

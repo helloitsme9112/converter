@@ -1,0 +1,86 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+}
+
+svg {
+  display: block;
+}
+
+body {
+  padding-block: 128px;
+  min-width: 320px;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.container {
+  margin: 0 auto;
+  padding: 0 213px;
+  max-width: 1366px;
+}
+
+.list-reset {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-c {
+  display: flex;
+  flex-direction: column ;
+}
+
+.sb {
+  justify-content: space-between;
+}
+
+.block {
+  display: block;
+}
+
+.btn-reset {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  background: #fff;
+  border: none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+@media all and (max-width: 1024px) {
+  body {
+    padding-block: 99px;
+  }
+
+  .container {
+    padding: 0 102px;
+  }
+}
+
+@media all and (max-width: 576px) {
+  .container {
+    padding: 0 22px;
+  }
+}

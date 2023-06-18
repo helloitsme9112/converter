@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Converter</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
+  <link rel="stylesheet" href="css/style.css">
+  <script defer type="module" src="script/script.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      app();
+    })
+  </script>
+</head>
+<body>
+  <header id="header">
+    <div class="container">
+      <h1 class="header__h1">Конвертер валют</h1>
+      <div class="header__wrapper flex">
+        <div class="wrapper wrapper--left flex-c">
+          <span class="header__prompt header__prompt--left">У меня имеется</span>
+          <select class="header__select header__select--from" name="" id=""></select>
+          <input class="header__input" type="number">
+        </div>
+        <button class="btn-reset header__button">
+          <svg class="desk" width="49" height="52" viewBox="0 0 49 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M37.0807 51.2747C37.326 51.52 37.6429 51.6427 37.97 51.6427C38.297 51.6427 38.6139 51.52 38.8592 51.2747L48.5178 41.6161C49.0084 41.1255 49.0084 40.3385 48.5178 39.8479L38.8592 30.1893C38.3686 29.6987 37.5816 29.6987 37.091 30.1893C36.6004 30.6799 36.6004 31.4669 37.091 31.9575L44.6135 39.48H1.79866C1.10365 39.48 0.541504 40.0421 0.541504 40.7371C0.541504 41.4321 1.10365 41.9943 1.79866 41.9943H44.6032L37.0807 49.5066C36.5902 49.9971 36.5902 50.7944 37.0807 51.2747Z"
+              fill="black" />
+            <path
+              d="M10.5783 0.367948L0.919675 10.0266C0.429078 10.5172 0.429078 11.3042 0.919675 11.7948L10.5783 21.4534C10.8236 21.6987 11.1404 21.8213 11.4675 21.8213C11.7946 21.8213 12.1114 21.6987 12.3567 21.4534C12.8473 20.9628 12.8473 20.1758 12.3567 19.6852L4.83423 12.1627H47.6388C48.3338 12.1627 48.896 11.6006 48.896 10.9056C48.896 10.2105 48.3338 9.64841 47.6388 9.64841H4.82401L12.3465 2.13614C12.8371 1.64554 12.8371 0.858545 12.3465 0.367948C11.8559 -0.122649 11.0587 -0.122649 10.5783 0.367948Z"
+              fill="black" />
+          </svg>
+          <svg class="tablet" width="54" height="40" viewBox="0 0 54 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.4385 23.6846L9.26252 16.0523L1.39963 24.4752M36.5599 16.3138L44.7358 23.9461L52.5987 15.5232M19.584 3.62867C22.683 2.14725 26.109 1.55466 29.4726 1.91824C32.8362 2.28183 36.0025 3.58701 38.6117 5.68546C41.2208 7.78391 43.1683 10.5915 44.2327 13.7891C45.2971 16.9868 45.4358 20.4462 44.633 23.7744M34.416 36.3712C31.3168 37.8533 27.8904 38.4463 24.5263 38.0829C21.1623 37.7195 17.9955 36.4142 15.386 34.3155C12.7765 32.2167 10.8289 29.4087 9.76461 26.2106C8.70031 23.0124 8.562 19.5525 9.36541 16.224" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <div class="wrapper wrapper--right flex-c">
+          <span class="header__prompt header__prompt--right">Хочу приобрести</span>
+          <select class="header__select header__select--to" name="" id="">
+            <option selected disabled value="" class="default">Выберите нужную валюту</option>
+          </select>
+          <div class="header__result flex-c"></div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <main>
+    <section id="table">
+      <div class="container">
+        <h2 class="table__h2"></h2>
+        <table class="table">
+          <thead></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+  <script src="https://www.cbr-xml-daily.ru/money.js"></script>
+</body>
+</html>

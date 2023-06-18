@@ -1,0 +1,59 @@
+@media all and (max-width: 1024px) {
+  .table__h2 {
+    max-width: 300px;
+    font-size: 30px;
+    line-height: 40px;
+  }
+
+  .charcode,
+  .nominal,
+  .name,
+  .value {
+    font-size: 20px;
+    line-height: 20px;
+    padding: 20px 24px;
+    width: 50%;
+    border-top: 1px solid var(--blue-grey);
+    background-color: var(--thead);
+  }
+
+  .value--right {
+    font-weight: 600;
+  }
+
+  tr:nth-child(8n + 5) > td,
+  tr:nth-child(8n + 6) > td,
+  tr:nth-child(8n + 7) > td,
+  tr:nth-child(8n + 8) > td {
+    background-color: var(--white);
+  }
+
+  tr:last-child > td {
+    border-bottom: 1px solid var(--blue-grey);
+  }
+
+  tr > td:first-child {
+    border-left: 1px solid var(--blue-grey);
+  }
+
+  tr > td:last-child {
+    border-right: 1px solid var(--blue-grey);
+  }
+
+  tr:first-of-type > td {
+    border-radius: 2px 0 0 0;
+  }
+
+  tr:first-of-type > td:last-child {
+    border-radius: 0 2px 0 0 ;
+  }
+
+  tr:last-of-type > td:first-child {
+    border-radius: 0 0 0 2px;
+  }
+
+  tr:last-of-type > td:last-child {
+    border-radius: 0 0 2px 0 ;
+  }
+}
+

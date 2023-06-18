@@ -1,0 +1,8 @@
+@import './variables.css';
+
+@import './sections/globe.css';
+@import './sections/header.css';
+@import './sections/table.css';
+
+@import './media/1024/header.css';
+@import './media/1024/table.css'

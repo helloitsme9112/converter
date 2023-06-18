@@ -1,0 +1,141 @@
+@media all and (max-width: 1024px) {
+  .header__h1 {
+    font-size: 30px;
+  }
+
+  .header__wrapper {
+    flex-direction: column;
+    position: relative;
+  }
+
+  .header__prompt {
+    font-size: 24px;
+    margin-bottom: 16px;
+  }
+
+  .tablet {
+    display: block;
+  }
+
+  .desk {
+    display: none;
+  }
+
+  .wrapper {
+    width: 100%;
+  }
+
+  .header__button {
+    position: absolute;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+    box-shadow: 0px 5px 13px rgba(192, 202, 214, 0.5);
+
+    top: 50%;
+    right: 0;
+
+    width: var(--btn-size);
+    height: var(--btn-size);
+
+    transform: translateY(-32%);
+  }
+
+  .wrapper--left {
+    margin-bottom: 72px;
+  }
+
+  .wrapper--right > .header__prompt--right + .choices {
+    order: 3;
+    /* искуственно усложня вложенность, чтобы не кидать импортант */
+  }
+
+  .header__result {
+    border-radius: 4px 4px 0 0;
+  }
+
+  .header__input {
+    border-radius: 0 0 4px 4px;
+  }
+
+  /* DD */
+
+  .choices {
+    position: relative;
+  }
+
+  .choices__list[aria-expanded] {
+    left: auto;
+    right: 0;
+    top: 72px;
+    border: none;
+    max-width: 540px;
+    border-radius: 4px;
+  }
+
+  .choices__list--dropdown .choices__item--selectable,
+  .choices__list[aria-expanded=true] .choices__item--selectable {
+    width: 100%;
+  }
+
+  .choices__list--dropdown .choices__list {
+    padding: 24px 32px;
+
+    row-gap: 24px;
+
+    /* border-radius: 0 0 4px 4px; */
+  }
+
+  .choices {
+    margin-bottom: 0;
+    margin-bottom: -1px;
+  }
+
+  .wrapper--right > .header__prompt--right + .choices > .choices__inner {
+    margin-top: -1px;
+    border-radius: 0 0 4px 4px;
+  }
+
+  .choices__inner {
+    font-size: 20px;
+    line-height: 20px;
+  }
+
+  .choices__list--dropdown .choices__item, .choices__list[aria-expanded] .choices__item {
+    font-size: 20px;
+    line-height: 20px;
+  }
+
+  .choices__list--dropdown .choices__item > span:first-child,
+  .choices__list[aria-expanded] .choices__item > span:first-child {
+    font-weight: 600;
+  }
+
+  .wrapper > .choices > .choices__inner {
+    padding: 18px 61px;
+  }
+
+  .choices__inner::before {
+    background-size: 20px 10px;
+  }
+
+  .choices__list--dropdown .choices__list,
+  .choices__list[aria-expanded] .choices__list {
+    padding: 24px 32px;
+    max-height: none;
+  }
+
+  .choices[data-type*=select-one] .choices__input {
+    font-size: 20px;
+    line-height: 20px;
+
+    padding: 24px 32px;
+
+    border-top: none;
+  }
+}
+
+
