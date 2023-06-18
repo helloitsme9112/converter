@@ -184,6 +184,7 @@
 
       btn.addEventListener('click', () => {
         e.classList.toggle('is-active')
+        // body.classList.remove('stop-scroll')
       } )
 
       e.prepend(btn)
@@ -282,12 +283,20 @@
       loadingText: 'Загрузка...',
       placeholder: true,
       placeholderValue: 'Выберите валюту',
+      duplicateItemsAllowed: false,
      }
 
     const selectLeft = new Choices(fromSelect, choicesOpt)
     const selectRight = new Choices(toSelect, choicesOpt)
 
     createCloseBtn()
+
+    selects.forEach(e => e.addEventListener('showDropdown', () => {
+      body.classList.add('stop-scroll')
+    }))
+    selects.forEach(e => e.addEventListener('hideDropdown', () => {
+      body.classList.remove('stop-scroll')
+    }))
 
     input.addEventListener('keypress', e => {
       // const digits = new RegExp(/(?:^\d+$)|\,+$|\.+$/) дробные числа

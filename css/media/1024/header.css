@@ -173,3 +173,11 @@
   }
 }
 
+@media all and (max-width: 673px) {
+  .header__button {
+    -webkit-transform: translateY(-32%);
+        -ms-transform: translateY(-32%);
+            transform: translateY(-32%);
+  }
+}
+
