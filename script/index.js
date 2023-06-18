@@ -63,7 +63,11 @@
     const img = document.createElement('img')
     const name = document.createElement('span')
 
-    img.src = `../img/${obj.CharCode}.svg`
+    try {
+      img.src = `../img/${obj.CharCode}.svg`
+    } catch (error) {
+      img.src = `/converter-WiP-/img/${obj.CharCode}.svg`
+    }
     img.alt = obj.CharCode
     name.textContent = obj.CharCode
 
