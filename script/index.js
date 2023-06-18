@@ -1,12 +1,13 @@
 (() => {
-  const selects = document.querySelectorAll('.header__select');
-  const [fromSelect, toSelect] = selects;
-  const input = document.querySelector('.header__input');
-  const result = document.querySelector('.header__result');
-  const table = document.querySelector('.table');
-  const thead = document.querySelector('thead');
-  const tbody = document.querySelector('tbody');
-  const swap = document.querySelector('.header__button');
+  const selects = document.querySelectorAll('.header__select')
+  const [fromSelect, toSelect] = selects
+  const input = document.querySelector('.header__input')
+  const result = document.querySelector('.header__result')
+  const table = document.querySelector('.table')
+  const thead = document.querySelector('thead')
+  const tbody = document.querySelector('tbody')
+  const swap = document.querySelector('.header__button')
+  const body = document.querySelector('body')
 
   let timerId
 
@@ -181,12 +182,6 @@
       const btn = document.createElement('button')
       btn.classList.add('close-button', 'btn-reset')
 
-      // const img = document.createElement('img')
-      // img.src = 'img/closeBtn.svg'
-      // img.alt = 'Закрыть выпадающий список'
-
-      // btn.append(img)
-
       btn.addEventListener('click', () => {
         e.classList.toggle('is-active')
       } )
@@ -209,11 +204,6 @@
       tbody.innerHTML = ''
       if (e.matches) {
         templateObjFraction(obj, 0, 0, generateTableTablet)
-        // window.matchMedia("(max-width: 576px)").addEventListener('change', e => {
-        //   if (e.matches) {
-        //     createCloseBtn()
-        //   }
-        // })
       } else {
         tHead()
         templateObjFraction(obj, 0, 0, generateTableDesktop)
@@ -297,7 +287,7 @@
     const selectLeft = new Choices(fromSelect, choicesOpt)
     const selectRight = new Choices(toSelect, choicesOpt)
 
-     createCloseBtn()
+    createCloseBtn()
 
     input.addEventListener('keypress', e => {
       // const digits = new RegExp(/(?:^\d+$)|\,+$|\.+$/) дробные числа
