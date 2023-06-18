@@ -63,7 +63,7 @@
     const img = document.createElement('img')
     const name = document.createElement('span')
 
-    img.src = `../img/${obj.CharCode}.svg`
+    img.src = `/img/${obj.CharCode}.svg`
     img.alt = obj.CharCode
     name.textContent = obj.CharCode
 
