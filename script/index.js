@@ -174,6 +174,27 @@
     }
   }
 
+  function createCloseBtn() {
+    const drops = document.querySelectorAll('.choices__list--dropdown')
+
+    drops.forEach(e => {
+      const btn = document.createElement('button')
+      btn.classList.add('close-button', 'btn-reset')
+
+      // const img = document.createElement('img')
+      // img.src = 'img/closeBtn.svg'
+      // img.alt = 'Закрыть выпадающий список'
+
+      // btn.append(img)
+
+      btn.addEventListener('click', () => {
+        e.classList.toggle('is-active')
+      } )
+
+      e.prepend(btn)
+    })
+  }
+
   function layout(obj) {
     selects.forEach(e => createOption('Российский рубль ', 'RUR', e))
 
@@ -187,31 +208,36 @@
       thead.innerHTML = ''
       tbody.innerHTML = ''
       if (e.matches) {
-        templateObjFraction(obj, 0, 0, template)
+        templateObjFraction(obj, 0, 0, generateTableTablet)
+        // window.matchMedia("(max-width: 576px)").addEventListener('change', e => {
+        //   if (e.matches) {
+        //     createCloseBtn()
+        //   }
+        // })
       } else {
         tHead()
         templateObjFraction(obj, 0, 0, generateTableDesktop)
       }
     })
-
-    selects.forEach(e => new Choices(e, {
-      searchResultLimit: 20,
-      position: 'bottom',
-      allowHTML: true,
-      itemSelectText: '',
-      searchPlaceholderValue: 'Что будем искать?',
-      noResultsText: 'Ничего не найдено',
-      loadingText: 'Загрузка...',
-      placeholder: true,
-      placeholderValue: 'Выберите валюту',
-     }))
   }
 
   function conversion(rates) {
-    if (fromSelect.querySelector('option').getAttribute('value') === "RUR") {
-      result.textContent = (+input.value * rates[toSelect.querySelector('option').getAttribute('value')].Value).toFixed(4)
+
+    const fromValue = fromSelect.querySelector('option').getAttribute('value'),
+          toValue = toSelect.querySelector('option').getAttribute('value')
+
+    if (fromValue === "RUR") {
+      const courseTo = rates[toSelect.querySelector('option').getAttribute('value')].Value
+      const nominalTo = rates[toSelect.querySelector('option').getAttribute('value')].Nominal
+
+      result.textContent = (+input.value / courseTo * nominalTo).toFixed(4)
+    } else if (toValue === "RUR") {
+      const courseFrom = rates[fromSelect.querySelector('option').getAttribute('value')].Value
+      const nominalFrom = rates[fromSelect.querySelector('option').getAttribute('value')].Nominal
+
+      result.textContent = (+input.value * courseFrom / nominalFrom).toFixed(4)
     } else {
-      result.textContent = fx(+input.value).from(fromSelect.value).to(toSelect.value).toFixed(4);
+      result.textContent = fx(+input.value).from(fromSelect.value).to(toSelect.value).toFixed(4)
     }
   }
 
@@ -253,27 +279,33 @@
     }
     const rates = data.Valute
     console.log(rates)
+
     layout(rates)
 
-    input.addEventListener('keypress', e => {
-      const digits = new RegExp(/(?:^\d+$)|\,+$|\.+$/),
-            comma = new RegExp(/\,/)
+    const choicesOpt = {
+      searchResultLimit: 20,
+      position: 'bottom',
+      allowHTML: true,
+      itemSelectText: '',
+      searchPlaceholderValue: 'Что будем искать?',
+      noResultsText: 'Ничего не найдено',
+      loadingText: 'Загрузка...',
+      placeholder: true,
+      placeholderValue: 'Выберите валюту',
+     }
 
-      // if (!digits.test(e.key)) {
-      //   e.preventDefault()
-      // } else if (toSelect.value !== "") {
-      //   if (comma.test(e.key)) {
-      //     console.log(e.key)
-      //   }
-      //   clearTimeout(timerId)
-      //   timerId = setTimeout(() => {
-      //     conversion(rates)
-      //   }, 300)
-      // }
-      console.log(e.data)
+    const selectLeft = new Choices(fromSelect, choicesOpt)
+    const selectRight = new Choices(toSelect, choicesOpt)
+
+     createCloseBtn()
+
+    input.addEventListener('keypress', e => {
+      // const digits = new RegExp(/(?:^\d+$)|\,+$|\.+$/) дробные числа
+      const digits = new RegExp(/^\d+$/) //только целые числа
+
       if (!digits.test(e.key)) {
         e.preventDefault()
-      } else {
+      } else if (toSelect.value !== "") {
           clearTimeout(timerId)
           timerId = setTimeout(() => {
             conversion(rates)
@@ -289,45 +321,25 @@
       })
     })
 
-
     swap.addEventListener('click', () => {
-      const choicesLeft = document.querySelector('.wrapper--left > .choices > .choices__list--dropdown > .choices__list')
-      const choicesRight = document.querySelector('.wrapper--right > .choices > .choices__list--dropdown > .choices__list')
+      if (!toSelect.querySelector('option').getAttribute('value')) {
+        console.log('forbidden action')
+        return
+      }
 
-      const selectFromValue = fromSelect.querySelector('option').getAttribute('value')
-      // console.log(selectFromInnerText)
-      const selectToValue = toSelect.querySelector('option').getAttribute('value')
-      // console.log(selectToInnerText)
+      if (!input.value) {
+        console.log('forbidden action')
+        return
+      }
 
+      const value1 = selectLeft.getValue(),
+            value2 = selectRight.getValue()
 
-      // ищем активную опцию селекта
-      // убираем активность
-      // ищем в дропе по дата-вэлью от противопроложного селекта
-      // добавляем активность
-      // ЭТИ БЛОКИ НЕ ДАЮТ ВИДИМЫХ ИЗМЕНЕНИЙ, ТК НЕ ЗАПУСКАЕТСЯ ПОДКАПОТНАЯ ЛОГИКА CHOICES.JS ОТ КЛИКА ПО АЙТЕМУ
-      const selectedLeft = choicesLeft.querySelector('.is-selected')
-      selectedLeft.classList.remove('is-selected')
-      choicesLeft.querySelector(`[data-value="${selectToValue}"]`).classList.add('is-selected')
+      selectLeft.setValue([{value: value2.value, label: value2.label}])
+      selectRight.setValue([{value: value1.value, label: value1.label}])
 
-      const selectedRight = choicesRight.querySelector('.is-selected')
-      selectedRight.classList.remove('is-selected')
-      choicesRight.querySelector(`[data-value="${selectFromValue}"]`).classList.add('is-selected')
-
-      const selectFields = document.querySelectorAll('.choices__list--single > div')
-      const valueLeft = selectFields[0].querySelectorAll('span')
-      const inputValue = input.value
-      const resultValue = +result.textContent
-      console.log(resultValue)
-      const valueRight = selectFields[1].querySelectorAll('span')
-      console.log(valueLeft, valueRight)
-      selectFields.forEach(e => e.innerHTML='')
-      selectFields[0].append(valueRight[0], valueRight[1])
-      selectFields[0].setAttribute('value', selectToValue)
-      input.value = resultValue.replace(0)
-
-      selectFields[1].append(valueLeft[0], valueLeft[1])
-      selectFields[1].setAttribute('value', selectFromValue)
-      result.textContent = conversion(rates)
+      input.value = result.textContent
+      conversion(rates)
     })
   }
   window.app = app;

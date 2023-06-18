@@ -75,7 +75,7 @@ tbody > tr:last-child > .td-value {
 
 .charcode {
   --padding-left: 24px;
-  width: calc(var(--left-width) + var(--padding-left) + var(--padding-right)) !important;
+  width: calc(var(--left-width) + var(--padding-left) + var(--padding-right));
   height: 100%;
   align-items: center;
 }
@@ -87,11 +87,11 @@ tbody > tr:last-child > .td-value {
 }
 
 .nominal {
-  width: calc(var(--left-width) + var(--padding-left) + var(--padding-right)) !important;
+  width: calc(var(--left-width) + var(--padding-left) + var(--padding-right));
 }
 
 .name {
-  width: calc(var(--right-width) + var(--padding-left) + var(--padding-right)) !important;
+  width: calc(var(--right-width) + var(--padding-left) + var(--padding-right));
   max-width: calc(var(--right-width) + var(--padding-left) + var(--padding-right));
   white-space: nowrap;
   overflow: hidden;
@@ -100,6 +100,6 @@ tbody > tr:last-child > .td-value {
 
 .value {
   --padding-right: 24px;
-  width: calc(var(--right-width) + var(--padding-left) + var(--padding-right)) !important;
+  width: calc(var(--right-width) + var(--padding-left) + var(--padding-right));
 }
 

@@ -80,6 +80,10 @@ input::-webkit-inner-spin-button {
 }
 
 @media all and (max-width: 576px) {
+  body {
+    padding-block: 60px;
+  }
+
   .container {
     padding: 0 22px;
   }

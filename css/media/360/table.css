@@ -1,0 +1,24 @@
+@media all and (max-width: 576px) {
+  .table__h2 {
+    font-size: 22px;
+    line-height: 30px;
+    max-width: 200px;
+  }
+
+  .charcode,
+  .nominal,
+  .name,
+  .value {
+    padding-inline: 22px;
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+  .charcode--right,
+  .nominal--right,
+  .name--right,
+  .value--right {
+    padding-left: 14px;
+    padding-right: 0;
+  }
+}

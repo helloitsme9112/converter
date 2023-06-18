@@ -12,7 +12,7 @@
 
   /* table sizes */
   --padding-top: 22px;
-  --padding-bot: 22px;
+  --padding-bot: 21px;
   --padding-left: 10px;
   --padding-right: 10px;
   --left-width: 118px;
@@ -25,5 +25,12 @@
 @media all and (max-width: 1024px) {
   :root {
     --width-after: 164px;
+  }
+}
+
+@media all and (max-width: 576px) {
+  :root {
+    --width-after: 60px;
+    --btn-size: 64px;
   }
 }

@@ -1,5 +1,5 @@
 #header {
-  margin-bottom: 122px;
+  margin-bottom: 124px;
 }
 
 .tablet {
@@ -14,11 +14,12 @@
   text-transform: uppercase;
 
   margin: 0;
-  margin-bottom: 40px;
+  margin-bottom: 50px;
 }
 
 .header__wrapper {
   justify-content: space-between;
+  align-items: center;
   position: relative;
 }
 
@@ -42,6 +43,10 @@
 
 .header__input,
 .header__result {
+  padding-inline: 10px;
+
+  overflow: hidden;
+
   min-height: 136px;
 
   border: 1px solid var(--blue-grey);
@@ -60,11 +65,31 @@
   width: 40.4%;
 }
 
-/* DD */
-
-.is-selected {
-  display: none;
+.header__button {
+  height: fit-content;
+  transform: translateY(92%)
 }
+
+.header__button:focus-visible {
+  outline: none;
+}
+
+.header__button:focus path,
+.header__button:hover path {
+  fill: var(--active-element);
+}
+
+.header__button:active path {
+  fill: var(--text-light);
+}
+
+.header__input:focus,
+.header__result:focus {
+  outline: none;
+  border-color: var(--text-light);
+}
+
+/* DD */
 
 .choices {
   position: static;
@@ -92,6 +117,7 @@
 
   padding-inline: 32px;
 }
+
 
 .choices__list--dropdown .choices__list,
 .choices__list[aria-expanded] .choices__list {
@@ -125,10 +151,8 @@
 .wrapper > .choices > .choices__inner {
   min-height: 0;
 
-  padding: 13px 21px 13px 21px;
-}
+  padding: 12px 21px 11px 21px;
 
-.choices__inner {
   position: relative;
 
   background-color: var(--active-element);
@@ -196,7 +220,11 @@
   font-weight: 400 !important;
 }
 
-.is-focused .choices__inner::before {
+.choices[data-type*=select-one]:focus .choices__inner {
+  border-color: var(--black);
+}
+
+.is-open .choices__inner::before {
   rotate: 180deg;
 }
 
@@ -205,15 +233,9 @@
   background-color: rgba(255, 255, 255, 0);
 }
 
-.choices__item--choice {
-  transition: color .15s ease-in-out;
-}
-
-.choices__item--choice:hover {
-  color: var(--active-element);
-}
-
-.choices__list--dropdown .choices__item, .choices__list[aria-expanded] .choices__item {
+.choices__list--dropdown .choices__item,
+.choices__list[aria-expanded] .choices__item {
+  transition: color 0.15s ease-in-out;
   color: var(--text-light);
 }
 
@@ -221,5 +243,24 @@
 .choices__list[aria-expanded] .choices__item > span:last-child {
   color: var(--black);
   font-weight: 700;
+  transition: color .15s ease-in-out;
 }
 
+.choices__list--dropdown .choices__item:hover,
+.choices__list[aria-expanded] .choices__item:hover {
+  color: var(--active-element);
+}
+
+.choices__list--dropdown .choices__item:hover > span:last-child,
+.choices__list[aria-expanded] .choices__item:hover > span:last-child {
+  color: var(--active-element);
+}
+
+
+.choices__item--disabled {
+  display: none;
+}
+
+.wrapper > .choices > .choices__list--dropdown > .choices__list > .is-selected {
+  display: none;
+}

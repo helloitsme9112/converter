@@ -1,6 +1,10 @@
 @media all and (max-width: 1024px) {
+  #header {
+    margin-bottom: 166px;
+  }
+
   .table__h2 {
-    max-width: 300px;
+    max-width: 240px;
     font-size: 30px;
     line-height: 40px;
   }
@@ -11,14 +15,27 @@
   .value {
     font-size: 20px;
     line-height: 20px;
-    padding: 20px 24px;
+    padding: 19.5px 24px;
     width: 50%;
     border-top: 1px solid var(--blue-grey);
     background-color: var(--thead);
   }
 
+  .name {
+    white-space: normal;
+    overflow: auto;
+    text-overflow: none;
+  }
+
   .value--right {
     font-weight: 600;
+  }
+
+  .charcode--right,
+  .nominal--right,
+  .name--right,
+  .value--right {
+    padding-left: 13px;
   }
 
   tr:nth-child(8n + 5) > td,
