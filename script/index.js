@@ -298,6 +298,10 @@
       body.classList.remove('stop-scroll')
     }))
 
+    selects.forEach(e => e.addEventListener('change', ev => {
+      console.log(ev)
+    }))
+
     input.addEventListener('keypress', e => {
       // const digits = new RegExp(/(?:^\d+$)|\,+$|\.+$/) дробные числа
       const digits = new RegExp(/^\d+$/) //только целые числа
@@ -310,6 +314,18 @@
             conversion(rates)
           }, 300)
       }
+    })
+
+    input.addEventListener('copy', e => {
+      e.preventDefault()
+    })
+
+    input.addEventListener('paste', e => {
+      e.preventDefault()
+    })
+
+    input.addEventListener('cut', e => {
+      e.preventDefault()
     })
 
     selects.forEach(e => {
@@ -332,13 +348,23 @@
       }
 
       const value1 = selectLeft.getValue(),
-            value2 = selectRight.getValue()
+            value2 = selectRight.getValue(),
+            parentLeft = document.querySelector('.wrapper--left .choices__list--dropdown > .choices__list'),
+            parentRight = document.querySelector('.wrapper--right .choices__list--dropdown > .choices__list')
 
       selectLeft.setValue([{value: value2.value, label: value2.label}])
       selectRight.setValue([{value: value1.value, label: value1.label}])
 
       input.value = result.textContent
       conversion(rates)
+
+      const itemToRemove1 = parentLeft.querySelector(`[data-value="${value2.value}"]`)
+      const itemToRemove2 = parentRight.querySelector(`[data-value="${value1.value}"]`)
+
+      itemToRemove1.classList.add('hide')
+      itemToRemove2.classList.add('hide')
+
+      console.log(itemToRemove1, itemToRemove2)
     })
   }
   window.app = app;

@@ -37,10 +37,10 @@
   margin-bottom: 16px;
 }
 
-.choices__item--choice > span:first-child {
+.choices__item > span:first-child {
   max-width: 75%;
 
-  white-space: nowrap;
+  /* white-space: nowrap; */
   overflow: hidden;
   -o-text-overflow: ellipsis;
      text-overflow: ellipsis;
@@ -308,11 +308,6 @@
   display: none;
 }
 
-.choices__list--single > .choices__item--selectable > span:first-child {
-  max-width: 10%;
-  overflow: hidden;
-  /* white-space: nowrap;
-  overflow: hidden;
-  -o-text-overflow: ellipsis;
-     text-overflow: ellipsis; */
+.hide {
+  display: none !important;
 }
