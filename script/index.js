@@ -184,7 +184,6 @@
 
       btn.addEventListener('click', () => {
         e.classList.toggle('is-active')
-        // body.classList.remove('stop-scroll')
       } )
 
       e.prepend(btn)
@@ -298,8 +297,9 @@
       body.classList.remove('stop-scroll')
     }))
 
-    selects.forEach(e => e.addEventListener('change', ev => {
-      console.log(ev)
+    selects.forEach(e => e.addEventListener('addItem', () => {
+      [selectLeft, selectRight].forEach(el =>
+        el._currentState.choices.splice(Object.keys(rates.length)))
     }))
 
     input.addEventListener('keypress', e => {
@@ -347,24 +347,16 @@
         return
       }
 
-      const value1 = selectLeft.getValue(),
-            value2 = selectRight.getValue(),
-            parentLeft = document.querySelector('.wrapper--left .choices__list--dropdown > .choices__list'),
-            parentRight = document.querySelector('.wrapper--right .choices__list--dropdown > .choices__list')
+      const idToSplice = selectLeft._currentState.choices.length
+      const value1 = selectLeft.getValue()
+      const value2 = selectRight.getValue()
+
 
       selectLeft.setValue([{value: value2.value, label: value2.label}])
       selectRight.setValue([{value: value1.value, label: value1.label}])
 
       input.value = result.textContent
       conversion(rates)
-
-      const itemToRemove1 = parentLeft.querySelector(`[data-value="${value2.value}"]`)
-      const itemToRemove2 = parentRight.querySelector(`[data-value="${value1.value}"]`)
-
-      itemToRemove1.classList.add('hide')
-      itemToRemove2.classList.add('hide')
-
-      console.log(itemToRemove1, itemToRemove2)
     })
   }
   window.app = app;

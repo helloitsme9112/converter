@@ -40,7 +40,27 @@
 .choices__item > span:first-child {
   max-width: 75%;
 
-  /* white-space: nowrap; */
+  white-space: nowrap;
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+     text-overflow: ellipsis;
+}
+
+.choices__inner .choices__item {
+  display: flex;
+  justify-content: center;
+}
+
+/* .choices__inner .choices__list--single {
+  width: calc(100% - var(--width-after));
+} */
+
+.choices__inner > .header__select + .choices__list--single > .choices__item > span:first-child {
+  max-width: 85%;
+
+  margin-right: 5px;
+
+  white-space: nowrap;
   overflow: hidden;
   -o-text-overflow: ellipsis;
      text-overflow: ellipsis;
@@ -174,7 +194,8 @@
 .wrapper > .choices > .choices__inner {
   min-height: 0;
 
-  padding: 12px 21px 11px 21px;
+  padding: 12px 0 11px 21px;
+  padding-right: calc(var(--width-after) + 21px);
 
   position: relative;
 
@@ -250,7 +271,8 @@
       -ms-flex-align: center;
           align-items: center;
 
-  width: calc(100% - var(--width-after));
+  /* width: calc(100% - var(--width-after) - 21px); */
+  width: 100%;
 
   padding: 0;
 
@@ -308,6 +330,6 @@
   display: none;
 }
 
-.hide {
+/* .hide {
   display: none !important;
-}
+} */

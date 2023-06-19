@@ -118,7 +118,8 @@
   }
 
   .wrapper > .choices > .choices__inner {
-    padding: 18px 61px;
+    padding: 18px 0 18px 61px;
+    padding-right: calc(var(--width-after) + 61px);
   }
 
   .wrapper--left > .choices > .choices__inner {
