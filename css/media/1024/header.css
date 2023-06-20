@@ -84,6 +84,17 @@
     min-height: 181px;
   }
 
+  .header__button:focus path,
+  .header__button:hover path {
+    fill: none;
+    stroke: var(--active-element);
+  }
+
+  .header__button:active path {
+    fill: none;
+    stroke: var(--text-light);
+  }
+
   /* DD */
 
   .choices {
@@ -168,17 +179,8 @@
 
 @media all and (max-width: 743px) {
   .header__button {
-    -webkit-transform: translateY(-21%);
-        -ms-transform: translateY(-21%);
-            transform: translateY(-21%);
-  }
-}
-
-@media all and (max-width: 673px) {
-  .header__button {
     -webkit-transform: translateY(-32%);
         -ms-transform: translateY(-32%);
             transform: translateY(-32%);
   }
 }
-

@@ -1,4 +1,4 @@
-@media all and (max-width: 576px) {
+@media all and (max-width: 600px) {
   #header {
     margin-bottom: 113px;
   }
@@ -52,20 +52,18 @@
             transform: translateY(-24%);
   }
 
-  .wrapper--right > .header__prompt--right + .choices > .choices__inner {
-    padding-inline: 45px;
-    min-height: 40px;
-  }
-
   .tablet {
     width: 36px;
     height: 24px;
   }
 
   .choices__list[aria-expanded] {
-    position: fixed;
+    width: calc(100% + 44px);
+    top: -154px;
+    right: -22px;
     max-width: none;
-    top: 0;
+    max-height: 100vh;
+    overflow-y: auto;
   }
 
   .choices__list--dropdown .choices__list,

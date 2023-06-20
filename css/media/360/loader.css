@@ -1,0 +1,6 @@
+@media all and (max-width: 600px) {
+  .loader {
+    padding: 22px;
+    font-size: 30px;
+  }
+}

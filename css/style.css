@@ -8,5 +8,6 @@
 @import './media/1024/header.css';
 @import './media/1024/table.css';
 
+@import './media/360/loader.css';
 @import './media/360/header.css';
 @import './media/360/table.css'

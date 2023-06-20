@@ -32,10 +32,6 @@
     $SpanRight.textContent = CharCode
     $Option.value = CharCode
 
-    if(CharCode === 'RUR' && select == fromSelect) {
-      // $Option.setAttribute('selected', 'true')
-    }
-
     $Option.append($SpanLeft)
     $Option.append($SpanRight)
     select.append($Option)
@@ -184,6 +180,7 @@
 
       btn.addEventListener('click', () => {
         e.classList.toggle('is-active')
+        e.querySelector('.choices__input').value = ''
       } )
 
       e.prepend(btn)
@@ -286,7 +283,7 @@
       allowHTML: true,
       itemSelectText: '',
       searchPlaceholderValue: 'Что будем искать?',
-      noResultsText: 'Ничего не найдено',
+      noResultsText: 'Попробуйте еще раз!',
       loadingText: 'Загрузка...',
       placeholder: true,
       placeholderValue: 'Выберите валюту',
@@ -298,11 +295,18 @@
 
     createCloseBtn()
 
+    // document.querySelectorAll('.choices__inner').forEach(e => e.setAttribute('tabindex', '0'))
+
     selects.forEach(e => e.addEventListener('showDropdown', () => {
       body.classList.add('stop-scroll')
+
     }))
     selects.forEach(e => e.addEventListener('hideDropdown', () => {
       body.classList.remove('stop-scroll')
+      if (e.querySelector('option').value !== "") {
+        e.closest('.choices__inner').style.cssText = 'background-color: #287EA2'
+        console.log(e.closest('.choices__inner').style.backGroundColor)
+      }
     }))
 
     selects.forEach(e => e.addEventListener('addItem', () => {
@@ -355,10 +359,8 @@
         return
       }
 
-      const idToSplice = selectLeft._currentState.choices.length
       const value1 = selectLeft.getValue()
       const value2 = selectRight.getValue()
-
 
       selectLeft.setValue([{value: value2.value, label: value2.label}])
       selectRight.setValue([{value: value1.value, label: value1.label}])

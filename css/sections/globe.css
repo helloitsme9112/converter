@@ -97,7 +97,7 @@ input::-webkit-inner-spin-button {
   }
 }
 
-@media all and (max-width: 576px) {
+@media all and (max-width: 600px) {
   body {
     padding-block: 60px;
   }
