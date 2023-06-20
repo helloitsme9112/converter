@@ -20,6 +20,9 @@
 
   /* tablet btn size */
   --btn-size: 88px;
+
+  /* loading anim-delay */
+  --delay: .05s
 }
 
 @media all and (max-width: 1024px) {

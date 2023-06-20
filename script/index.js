@@ -255,11 +255,19 @@
   }
 
   async function app() {
-    const data = await getData()
-
-    if (!data) {
-      return
-    }
+    const data = await fetch('https://www.cbr-xml-daily.ru/daily_json.js')
+      .then(function (response) {
+        console.log('loaded')
+        setTimeout(() => {
+          document.querySelector('header').classList.remove('hidden')
+          document.querySelector('main').classList.remove('hidden')
+          document.querySelector('.loader').remove()
+        }, 1000)
+        return response.json()
+      },
+        function (err) {
+          console.error(err.message)
+        })
 
     renderDate(data)
     console.log(data)
@@ -299,7 +307,7 @@
 
     selects.forEach(e => e.addEventListener('addItem', () => {
       [selectLeft, selectRight].forEach(el =>
-        el._currentState.choices.splice(Object.keys(rates.length)))
+        el._currentState.choices.splice(Object.keys(rates).length))
     }))
 
     input.addEventListener('keypress', e => {

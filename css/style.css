@@ -1,6 +1,7 @@
 @import './variables.css';
 
 @import './sections/globe.css';
+@import './sections/loader.css';
 @import './sections/header.css';
 @import './sections/table.css';
 

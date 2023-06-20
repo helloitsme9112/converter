@@ -18,7 +18,19 @@
   </script>
 </head>
 <body>
-  <header id="header">
+  <div class="loader flex">
+    <div class="loader-container flex">
+      <div class="text">
+        <!-- Загрузка -->
+        <span>З</span><span>а</span><span>г</span><span>р</span><span>у</span><span>з</span><span>к</span><span>а</span>
+      </div>
+      <span class="dots"></span>
+      <span class="dots"></span>
+      <span class="dots"></span>
+    </div>
+  </div>
+
+  <header id="header" class="hidden">
     <div class="container">
       <h1 class="header__h1">Конвертер валют</h1>
       <div class="header__wrapper flex">
@@ -50,7 +62,7 @@
       </div>
     </div>
   </header>
-  <main>
+  <main class="hidden">
     <section id="table">
       <div class="container">
         <h2 class="table__h2"></h2>
