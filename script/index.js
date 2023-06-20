@@ -349,7 +349,7 @@
     })
 
     swap.addEventListener('click', () => {
-      if (fromSelect.querySelector('option').getAttribute('value') == "" && toSelect.querySelector('option').getAttribute('value') == "") {
+      if (fromSelect.querySelector('option').getAttribute('value') == "" || toSelect.querySelector('option').getAttribute('value') == "") {
         console.log('forbidden action')
         alert('Выберите оба типа валют.')
         return
