@@ -349,13 +349,9 @@
     })
 
     swap.addEventListener('click', () => {
-      if (!toSelect.querySelector('option').getAttribute('value')) {
+      if (fromSelect.querySelector('option').getAttribute('value') == "" && toSelect.querySelector('option').getAttribute('value') == "") {
         console.log('forbidden action')
-        return
-      }
-
-      if (!input.value) {
-        console.log('forbidden action')
+        alert('Выберите оба типа валют.')
         return
       }
 
@@ -365,8 +361,12 @@
       selectLeft.setValue([{value: value2.value, label: value2.label}])
       selectRight.setValue([{value: value1.value, label: value1.label}])
 
-      input.value = result.textContent
-      conversion(rates)
+      if (fromSelect.querySelector('option').getAttribute('value')
+          && toSelect.querySelector('option').getAttribute('value')
+          && input.value) {
+        input.value = result.textContent
+        conversion(rates)
+      }
     })
   }
   window.app = app;
