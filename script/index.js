@@ -11,16 +11,12 @@
 
   let timerId
 
+  // вспомогательный объект для генерации адаптивной таблицы
   const list = {
     CharCode: 'Код',
     Nominal: 'Единица',
     Name: 'Валюта',
     Value: 'Курс базовой валюты',
-  }
-
-  async function getData() {
-    const response = await fetch('https://www.cbr-xml-daily.ru/daily_json.js');
-    return await response.json()
   }
 
   function createOption(Name, CharCode, select) {
@@ -70,13 +66,20 @@
     return wrapper
   }
 
-  function generateClassNameString(obj, key, spec) {
+  function generateClassNamesStrings(obj, key, spec) {
     const general = `${Object.keys(list)[key].toLowerCase()}`
     const specified = `${Object.keys(obj)[key].toLowerCase()}--${spec}`
     return {
       general,
       specified
     }
+  }
+
+  function concatClassNamesStrings(item, obj, key, direction) {
+    return item.classList.add(
+      generateClassNamesStrings(obj, key).general,
+      generateClassNamesStrings(obj, key, direction).specified
+    )
   }
 
   function generateTableDesktop(obj) {
@@ -98,6 +101,13 @@
     }
   }
 
+  // function
+
+  function createTdLeftTablet(obj, item, key) {
+    item.textContent = Object.values(list)[key]
+    concatClassNamesStrings(item, obj, key, 'left')
+  }
+
   function generateTableTablet(obj) {
     for (let key = 0; key < Object.keys(obj).length; key++) {
       const $TRow = document.createElement('tr')
@@ -109,32 +119,21 @@
       if (Object.keys(obj)[key] === "CharCode") {
         // исключением обрабатывается только блок с флагом, его отдельно выносим в иф
         // левая колонка привязана к значениям объекта list
-        $TdLeft.textContent = Object.values(list)[key]
-        $TdLeft.classList.add(
-          generateClassNameString(obj, key).general,
-          generateClassNameString(obj, key, 'left').specified
-        )
+        createTdLeftTablet(obj, $TdLeft, key)
 
         // правая колонка привязана к значениям объекта с сервера
         $TdRight.append(createFlagBlock(obj))
-        $TdRight.classList.add(
-          generateClassNameString(obj, key).general,
-          generateClassNameString(obj, key, 'right').specified
-        )
+
+        concatClassNamesStrings($TdRight, obj, key, 'right')
 
         $TRow.append($TdLeft, $TdRight)
       } else {
-        $TdLeft.textContent = Object.values(list)[key]
-        $TdLeft.classList.add(
-          generateClassNameString(obj, key).general,
-          generateClassNameString(obj, key, 'left').specified
-        )
+
+        createTdLeftTablet(obj, $TdLeft, key)
 
         $TdRight.textContent = Object.values(obj)[key]
-        $TdRight.classList.add(
-          generateClassNameString(obj, key).general,
-          generateClassNameString(obj, key, 'right').specified
-        )
+
+        concatClassNamesStrings($TdRight, obj, key, 'right')
 
         $TRow.append($TdLeft, $TdRight)
       }
@@ -181,7 +180,7 @@
       btn.addEventListener('click', () => {
         e.classList.toggle('is-active')
         e.querySelector('.choices__input').value = ''
-      } )
+      })
 
       e.prepend(btn)
     })
@@ -190,12 +189,15 @@
   function layout(obj) {
     selects.forEach(e => createOption('Российский рубль ', 'RUR', e))
 
+    // проверка первого рендера
     if (!window.matchMedia("(max-width: 1024px)").matches) {
       tHead()
     }
 
+    // дробление серверного объекта на подобъекты
     templateObjFraction(obj, 1, 1)
 
+    //
     window.matchMedia("(max-width: 1024px)").addEventListener('change', e => {
       thead.innerHTML = ''
       tbody.innerHTML = ''
@@ -209,18 +211,17 @@
   }
 
   function conversion(rates) {
-
     const fromValue = fromSelect.querySelector('option').getAttribute('value'),
           toValue = toSelect.querySelector('option').getAttribute('value')
 
     if (fromValue === "RUR") {
-      const courseTo = rates[toSelect.querySelector('option').getAttribute('value')].Value
-      const nominalTo = rates[toSelect.querySelector('option').getAttribute('value')].Nominal
+      const courseTo = rates[toValue].Value
+      const nominalTo = rates[toValue].Nominal
 
       result.textContent = (+input.value / courseTo * nominalTo).toFixed(4)
     } else if (toValue === "RUR") {
-      const courseFrom = rates[fromSelect.querySelector('option').getAttribute('value')].Value
-      const nominalFrom = rates[fromSelect.querySelector('option').getAttribute('value')].Nominal
+      const courseFrom = rates[fromValue].Value
+      const nominalFrom = rates[fromValue].Nominal
 
       result.textContent = (+input.value * courseFrom / nominalFrom).toFixed(4)
     } else {
@@ -251,6 +252,24 @@
     h2.textContent = `курсы валют на ${generateDateStrings(obj).day}.${generateDateStrings(obj).month}.${generateDateStrings(obj).year}`
   }
 
+  ['copy', 'cut', 'paste'].forEach(e => {
+    input.addEventListener(e, evt => evt.preventDefault())
+  })
+
+  input.addEventListener('keypress', e => {
+    // const digits = new RegExp(/(?:^\d+$)|\,+$|\.+$/) дробные числа
+    const digits = new RegExp(/^\d+$/) //только целые числа
+
+    if (!digits.test(e.key)) {
+      e.preventDefault()
+    } else if (toSelect.value !== "") {
+        clearTimeout(timerId)
+        timerId = setTimeout(() => {
+          conversion(rates)
+        }, 300)
+    }
+  })
+
   async function app() {
     const data = await fetch('https://www.cbr-xml-daily.ru/daily_json.js')
       .then(function (response) {
@@ -264,6 +283,7 @@
       },
         function (err) {
           console.error(err.message)
+          return
         })
 
     renderDate(data)
@@ -290,55 +310,27 @@
       duplicateItemsAllowed: false,
      }
 
-    const selectLeft = new Choices(fromSelect, choicesOpt)
-    const selectRight = new Choices(toSelect, choicesOpt)
+    const choicesLeft = new Choices(fromSelect, choicesOpt)
+    const choicesRight = new Choices(toSelect, choicesOpt)
 
     createCloseBtn()
 
-    // document.querySelectorAll('.choices__inner').forEach(e => e.setAttribute('tabindex', '0'))
-
     selects.forEach(e => e.addEventListener('showDropdown', () => {
-      body.classList.add('stop-scroll')
-
+      body.classList.toggle('stop-scroll')
     }))
+
     selects.forEach(e => e.addEventListener('hideDropdown', () => {
-      body.classList.remove('stop-scroll')
+      body.classList.toggle('stop-scroll')
       if (e.querySelector('option').value !== "") {
         e.closest('.choices__inner').style.cssText = 'background-color: #287EA2'
-        console.log(e.closest('.choices__inner').style.backGroundColor)
       }
     }))
 
     selects.forEach(e => e.addEventListener('addItem', () => {
-      [selectLeft, selectRight].forEach(el =>
+      [choicesLeft, choicesRight].forEach(el =>
+        // удаляет все объекты, которые добавляются после choicesInstance.setValue()
         el._currentState.choices.splice(Object.keys(rates).length))
     }))
-
-    input.addEventListener('keypress', e => {
-      // const digits = new RegExp(/(?:^\d+$)|\,+$|\.+$/) дробные числа
-      const digits = new RegExp(/^\d+$/) //только целые числа
-
-      if (!digits.test(e.key)) {
-        e.preventDefault()
-      } else if (toSelect.value !== "") {
-          clearTimeout(timerId)
-          timerId = setTimeout(() => {
-            conversion(rates)
-          }, 300)
-      }
-    })
-
-    input.addEventListener('copy', e => {
-      e.preventDefault()
-    })
-
-    input.addEventListener('paste', e => {
-      e.preventDefault()
-    })
-
-    input.addEventListener('cut', e => {
-      e.preventDefault()
-    })
 
     selects.forEach(e => {
       e.addEventListener('change', () => {
@@ -355,11 +347,11 @@
         return
       }
 
-      const value1 = selectLeft.getValue()
-      const value2 = selectRight.getValue()
+      const value1 = choicesLeft.getValue()
+      const value2 = choicesRight.getValue()
 
-      selectLeft.setValue([{value: value2.value, label: value2.label}])
-      selectRight.setValue([{value: value1.value, label: value1.label}])
+      choicesLeft.setValue([{value: value2.value, label: value2.label}])
+      choicesRight.setValue([{value: value1.value, label: value1.label}])
 
       if (fromSelect.querySelector('option').getAttribute('value')
           && toSelect.querySelector('option').getAttribute('value')
